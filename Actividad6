@@ -1,0 +1,65 @@
+Funcion salario(salarioBruto, tipoContrato, edad, pagas)
+	Definir Cotizacion, tipoIRPF, bonificacion, numeroPagas, salarioBrutoMes, salarioNetoMes, salarioNeto Como Real;
+	si salarioBruto>30000 Entonces
+		Cotizacion<- 0.2;
+	SiNo
+		si salarioBruto<30000 y salarioBruto>20000 Entonces
+			Cotizacion <- 0.15;
+		SiNo
+			Cotizacion<-0.12;
+		FinSi
+	FinSi
+	Segun tipoContrato Hacer
+		"indefinido":
+			tipoIRPF<-0.15;
+		"temporal":
+			tipoIRPF<-0.08;
+		"practicas":
+			tipoIRPF<-0.02;
+	FinSegun
+	si edad <18 Entonces
+		bonificacion <-50;
+	SiNo
+		si edad>=18 y edad<=65 Entonces
+			bonificacion <- -100;
+		SiNo
+			bonificacion<-75;
+		FinSi
+	FinSi
+	si pagas = verdadero Entonces
+		numeroPagas<-12;
+	SiNo
+		numeroPagas<-14;
+	FinSi
+	salarioBrutoMes<-salarioBruto/numeroPagas;
+	salarioNeto<- salarioBruto-(salarioBruto*tipoIRPF)-(salarioBruto*Cotizacion)+(bonificacion*numeroPagas)
+	salarioNetoMes<-salarioNeto/numeroPagas
+	Escribir "Su salario bruto mensual es de: ", salarioBruto;
+	Escribir "Su porcentaje de cotización es de: ", Cotizacion;
+	Escribir "Su porcentaje de IRPF segun su tipo de contrato es: ", tipoIRPF;
+	Escribir "Su bonificacion mensual por su edad es de: ", bonificacion;
+	Escribir "Total liquido a percibir anual: ", salarioNeto;
+	Escribir "Total liquido a percibir mensual: ", salarioNetoMes;
+	si numeroPagas=14 Entonces
+		Escribir "Tiene 2 pagas extra de: ", salarioNetoMes
+	FinSi
+FinFuncion
+
+Algoritmo Actividad6
+	Definir bruto Como Real;
+	definir contrato como cadena;
+	definir age Como Entero;
+	Definir paga Como Logico;
+	Escribir Sin Saltar "Ingrese su salario bruto anual: "
+	Leer bruto;
+	Escribir Sin Saltar "Defina su tipo de contrato entre los siguientes(indefinido, temporal, practicas): "
+	leer contrato;
+	Escribir Sin Saltar "Ingrese su edad: ";
+	Leer age;
+	Escribir Sin Saltar "Si tiene 14 pagas escriba falso, si tiene 12 pagas escriba verdadero: "
+	leer paga;
+	
+	salario(bruto, contrato, age, paga);
+	
+	
+FinAlgoritmo
